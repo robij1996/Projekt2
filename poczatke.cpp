@@ -4,7 +4,13 @@ using namespace std;
 
 int main()
 {
-    int x = 1;
-    char s='assaddasd';
+    string a ="aaab";
+    string b = "aaa";
+
+    if(a>b)
+    cout<<a<<endl;
+    else
+    cout<<b<<endl;
+    
     return 0;
 }
