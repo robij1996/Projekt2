@@ -3,16 +3,20 @@
 
 #include<iostream>
 #include<cstdlib>
-#include"kontener.hh"
 
 
-class Szybkie : public Kontener 
+
+
+template<class T, int ilosc>
+class Szybkie  
 {
     public:
 
-    Szybkie() ;
-  
+    T *tablica = new T [ilosc];
+    //Szybkie();
 
+    void wyswietlTablice();
+    void wypelnijLosowymiLiczbami ();
     void szybkiSortowanie(int poczatek , int koniec);
 
 };

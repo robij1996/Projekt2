@@ -2,9 +2,10 @@
 #include<cstdlib>
 #include"scalanie.hh"
 #include"szybki.hh"
-#include"kontener.hh"
+
 
 using namespace std;
+
 
 
 
@@ -13,9 +14,9 @@ using namespace std;
 int main()
 {
 
-    Szybkie szTab;
-    Scalanie sTab; 
-
+    Szybkie<int,10> szTab;
+    Scalanie sTab ; 
+ 
 
     szTab.wyswietlTablice();
     cout<<endl;

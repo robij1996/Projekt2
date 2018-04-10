@@ -1,27 +1,27 @@
 #include<iostream>
 #include<cstdlib>
 #include"szybki.hh"
-#include"kontener.hh"
+
 
 using namespace std;
 
 
 
-
-
-Szybkie::Szybkie()
+/*
+template<class T, int ilosc>
+Szybkie<T, ilosc>::Szybkie()
 {
     srand(time(NULL));
-   for(int i = 0; i < N ; i++)
+   for(int i = 0; i < ilosc ; i++)
    {
-       tablica[i] = rand() % M;
+       tablica[i] = rand() % 100;
    }
 
-}
+}*/
 
 
-
-void Szybkie::szybkiSortowanie(int poczatek , int koniec)
+template<class T, int ilosc>
+void Szybkie<T, ilosc>::szybkiSortowanie(int poczatek , int koniec)
 {
    
     int i = poczatek;
@@ -62,3 +62,28 @@ void Szybkie::szybkiSortowanie(int poczatek , int koniec)
 
 }
 
+
+template<class T, int ilosc>
+void Szybkie<T, ilosc>::wyswietlTablice()
+{
+    for(int i = 0; i < ilosc ; i++)
+   {
+       cout<<tablica[i]<<"  ";
+
+   }
+}
+
+
+
+template<class T, int ilosc>
+void Szybkie<T, ilosc>::wypelnijLosowymiLiczbami ()
+{
+   
+   srand(time(NULL));
+   for(int i = 0; i < ilosc ; i++)
+   {
+       tablica[i] = rand() % 100;
+   }
+   
+   
+}

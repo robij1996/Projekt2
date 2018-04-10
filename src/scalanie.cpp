@@ -1,12 +1,12 @@
 #include<iostream>
 #include<cstdlib>
 #include"scalanie.hh"
-#include"kontener.hh"
+
 
 using namespace std;
 
 
-
+/*
 
 Scalanie::Scalanie()
 {
@@ -17,7 +17,7 @@ Scalanie::Scalanie()
    }
 
 
-}
+}*/
 
 
 void Scalanie::scalanie(int poczatek, int srodek, int koniec)
@@ -65,4 +65,28 @@ void Scalanie::sortowanieScalanie(int poczatek, int koniec)
     }
 
 
+}
+
+void Scalanie::wyswietlTablice()
+{
+    for(int i = 0; i < N ; i++)
+   {
+       cout<<tablica[i]<<"  ";
+
+   }
+}
+
+
+
+
+void Scalanie::wypelnijLosowymiLiczbami ()
+{
+   
+   srand(time(NULL));
+   for(int i = 0; i < N ; i++)
+   {
+       tablica[i] = rand() % M;
+   }
+   
+   
 }

@@ -1,15 +1,20 @@
 #ifndef SCAL_HH
 #define SCAL_HH
-#include"kontener.hh"
+const int N = 10;
+const int M = 10;
 
-class Scalanie : public Kontener
+class Scalanie 
 {
 
     public:
 
     int tab_pom[N] ;
+    int *tablica = new int [N];
 
-    Scalanie();
+    void wyswietlTablice();
+    void wypelnijLosowymiLiczbami ();
+
+    //Scalanie();
 
     void scalanie(int poczatek, int srodek, int koniec);
     void sortowanieScalanie(int poczatek, int koniec);
