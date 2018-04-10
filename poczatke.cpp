@@ -1,10 +1,13 @@
 #include<iostream>
 #include<cstdlib>
 #include <vector>
+#include"szybki.hh"
 using namespace std;
 
 const int N = 15; // rozmiar tablic 
 const int M = 100; // zakres liczb losowanych 
+
+
 class Kontener
 {
     public:
