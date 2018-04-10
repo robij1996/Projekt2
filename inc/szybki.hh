@@ -10,7 +10,7 @@ class Szybkie : public Kontener
 {
     public:
 
-    Szybkie();
+    Szybkie() ;
   
 
     void szybkiSortowanie(int poczatek , int koniec);
