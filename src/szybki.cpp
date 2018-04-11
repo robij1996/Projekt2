@@ -1,6 +1,6 @@
 #include<iostream>
 #include<cstdlib>
-#include"szybki.hh"
+#include"szybki.hpp"
 
 
 using namespace std;
@@ -24,7 +24,7 @@ template<class T, int ilosc>
 void Szybkie<T, ilosc>::szybkiSortowanie(int poczatek , int koniec)
 {
    
-    int i = poczatek;
+    int i = poczatek; 
     int j = koniec;
     int pomocniczy;
     int srodek = tablica[ (poczatek+koniec) / 2];

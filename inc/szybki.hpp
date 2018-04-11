@@ -1,9 +1,6 @@
 #ifndef SZYBKI_HH
 #define SZYBKI_HH
 
-#include<iostream>
-#include<cstdlib>
-
 
 
 

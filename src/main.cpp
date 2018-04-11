@@ -1,7 +1,7 @@
 #include<iostream>
 #include<cstdlib>
-#include"scalanie.hh"
-#include"szybki.hh"
+#include"szybki.hpp"
+#include"scalanie.hpp"
 
 
 using namespace std;
@@ -19,10 +19,10 @@ int main()
  
 
     szTab.wyswietlTablice();
-    cout<<endl;
+    /*cout<<endl;
     szTab.szybkiSortowanie(0, N - 1);
     szTab.wyswietlTablice();
-
+/*
     cout<<endl;
     cout<<endl;
     sTab.wypelnijLosowymiLiczbami();
@@ -30,8 +30,8 @@ int main()
     cout<<endl;
     sTab.sortowanieScalanie(0, N-1 );
     sTab.wyswietlTablice();
-  
-    
+
+    */
 
  
     

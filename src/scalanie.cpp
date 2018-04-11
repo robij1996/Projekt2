@@ -1,6 +1,6 @@
 #include<iostream>
 #include<cstdlib>
-#include"scalanie.hh"
+#include"scalanie.hpp"
 
 
 using namespace std;

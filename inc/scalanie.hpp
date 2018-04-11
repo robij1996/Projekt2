@@ -1,5 +1,6 @@
 #ifndef SCAL_HH
 #define SCAL_HH
+
 const int N = 10;
 const int M = 10;
 

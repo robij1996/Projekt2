@@ -1,76 +1,81 @@
 #include<iostream>
 #include<cstdlib>
-#include <vector>
-#include"szybki.hh"
+#include<cmath>
+
 using namespace std;
 
-const int N = 15; // rozmiar tablic 
-const int M = 100; // zakres liczb losowanych 
 
-
-class Kontener
+template<typename T>
+void wyswietlTablice(T* tab,int wielkosc)
 {
-    public:
+    for(int i = 0; i < wielkosc ; i++)
+    {
+        cout<<tab[i]<<"  ";
+        if(i!=0 && i%15==0)
+        cout<<endl;
 
-    int *tablica = new int [N];
+    }
+    cout<<endl;
+}
 
-    void wyswietlTablice();
-    void wypelnijLosowymiLiczbami ();
-
-};
-
-class Szybkie : public Kontener 
-{
-    public:
-
-    Szybkie();
-  
-
-    void szybkiSortowanie(int poczatek , int koniec);
-
-};
-
-class Scalanie : public Kontener
-{
-
-    public:
-
-    int tab_pom[N] ;
-
-    Scalanie();
-
-    void scalanie(int poczatek, int srodek, int koniec);
-    void sortowanieScalanie(int poczatek, int koniec);
-
-
-
-};
-
-class Intro : public Kontener
-{
-
-};
-
-
-
-Scalanie::Scalanie()
+template<typename T>
+void wypelnijTablice(T *tab, int wielkosc)
 {
     srand(time(NULL));
-   for(int i = 0; i < N ; i++)
+    for(int i = 0; i < wielkosc ; i++)
+    {
+       tab[i] = rand() % 10000;
+    }
+
+
+    
+}
+
+template<typename T>
+int dzielenieTablicy(T *tablica, int poczatek, int koniec)
+{
+    int x = tablica[koniec];
+    int tab_pom;
+    int i = poczatek;
+
+    for(int j = poczatek ; j < koniec; ++j)
+    {
+        if(tablica[j] <= x)
+        {
+            tab_pom = tablica[j];
+            tablica[j] = tablica[i];
+            tablica[i] = tab_pom;
+            i++;
+        }
+    }
+
+    tablica[koniec] = tablica[i];
+    tablica[i] = x;
+    return i;
+
+}
+
+
+template<typename T>
+void szybkiSortowanie(T *tablica, int poczatek , int koniec)
+{
+   if(poczatek < koniec)
    {
-       tablica[i] = rand() % M;
+       int pomocnicza = dzielenieTablicy<T>(tablica, poczatek, koniec);
+       szybkiSortowanie<T>(tablica, poczatek, pomocnicza - 1);
+       szybkiSortowanie<T>(tablica, pomocnicza + 1, koniec);
    }
 
 
 }
 
-
-void Scalanie::scalanie(int poczatek, int srodek, int koniec)
+template<typename T>
+void scalanie(T *tablica, int poczatek, int srodek, int koniec)
 {
     int i;
     int j;
     int k;
-
+    T *tab_pom = new T [koniec];
     for(i = poczatek; i <= koniec; i++)
         tab_pom[i] = tablica[i];
 
@@ -91,21 +96,22 @@ void Scalanie::scalanie(int poczatek, int srodek, int koniec)
         tablica[k++] = tab_pom[i++];
 
 
-  
-
 
 }
 
-void Scalanie::sortowanieScalanie(int poczatek, int koniec)
+
+
+template<typename T>
+void sortowanieScalanie(T *tablica,int poczatek, int koniec)
 {
     int srodek;
 
     if(poczatek < koniec)
     {
         srodek = (poczatek + koniec)/2;
-        sortowanieScalanie(poczatek, srodek);
-        sortowanieScalanie(srodek + 1, koniec);
-        scalanie(poczatek, srodek, koniec);
+        sortowanieScalanie<T>(tablica, poczatek, srodek);
+        sortowanieScalanie<T>(tablica, srodek + 1, koniec);
+        scalanie<T>(tablica, poczatek, srodek, koniec);
 
     }
 
@@ -114,116 +120,73 @@ void Scalanie::sortowanieScalanie(int poczatek, int koniec)
 
 
 
-Szybkie::Szybkie()
+
+template<typename T>
+void sortowanieIntro(T *tablica, int wielk)
 {
-    srand(time(NULL));
-   for(int i = 0; i < N ; i++)
-   {
-       tablica[i] = rand() % M;
-   }
-
-}
+    int wartoscTab = dzielenieTablicy<T>(tablica, 0, wielk);
 
 
-
-void Szybkie::szybkiSortowanie(int poczatek , int koniec)
-{
-   
-    int i = poczatek;
-    int j = koniec;
-    int pomocniczy;
-    int srodek = tablica[ (poczatek+koniec) / 2];
-
-    while(i <= j)
+     if(wartoscTab > ( 2 * log(wielk) ) )
     {
-        while(tablica[i] < srodek)
-            i++;
-        
-        while(tablica[j] > srodek)
-            j--;
-        
-        if(i <= j)
-        {
-            pomocniczy = tablica[i];
-            tablica[i] = tablica[j];
-            tablica[j] = pomocniczy;
-            i++;
-            j--;
-
-
-        }
-
-
-    };
-    
-    
-    if(poczatek < j)
-        szybkiSortowanie(poczatek, j);
-    
-    if(i < koniec)
-        szybkiSortowanie(i, koniec);
-
-
+        sortowanieScalanie<T>(tablica, 0, wielk);
+    }
+    else 
+    {
+        szybkiSortowanie<T>(tablica, 0, wielk);
+    }
 
 }
 
 
-
-
-
-
-
-
-void Kontener::wyswietlTablice()
+template<typename T, int wielkosc>
+void badanieSzybkiegoSortowania()
 {
-    for(int i = 0; i < N ; i++)
-   {
-       cout<<tablica[i]<<"  ";
+    T *tablica = new T [wielkosc];
 
-   }
+    wypelnijTablice<T>(tablica, wielkosc);
+    wyswietlTablice<T>(tablica, wielkosc);
+    szybkiSortowanie<T>(tablica, 0, wielkosc);
+    wyswietlTablice<T>(tablica, wielkosc);
+    delete [] tablica;
 }
 
-
-
-
-void Kontener::wypelnijLosowymiLiczbami ()
+template<typename T, int wielkosc>
+void badanieSortowanieScalanie()
 {
-   
-   srand(time(NULL));
-   for(int i = 0; i < N ; i++)
-   {
-       tablica[i] = rand() % M;
-   }
-   
-   
+    T *tablica = new T [wielkosc];
+    wypelnijTablice<T>(tablica, wielkosc);
+    wyswietlTablice<T>(tablica, wielkosc);
+    sortowanieScalanie<T>(tablica, 0, wielkosc);
+    wyswietlTablice<T>(tablica, wielkosc);
+    delete [] tablica;
+
+    
 }
 
 
+
+template<typename T, int wielkosc>
+void badanieIntrosortu()
+{   
+    T *tablica = new T [wielkosc];
+    wypelnijTablice<T>(tablica, wielkosc);
+    //wyswietlTablice<T>(tablica, wielkosc);
+    sortowanieIntro<T>(tablica,  wielkosc);
+    //wyswietlTablice<T>(tablica, wielkosc);
+    delete [] tablica;
+
+}
 
 
 
 int main()
 {
-
-    Szybkie szTab;
-    Scalanie sTab; 
-
-
-    szTab.wyswietlTablice();
-    cout<<endl;
-    szTab.szybkiSortowanie(0, N - 1);
-    szTab.wyswietlTablice();
-
-    cout<<endl;
-    cout<<endl;
-    sTab.wypelnijLosowymiLiczbami();
-    sTab.wyswietlTablice();
-    cout<<endl;
-    sTab.sortowanieScalanie(0, N-1 );
-    sTab.wyswietlTablice();
-  
     
-
+    //badanieSzybkiegoSortowania<int, 10>();
+    //badanieSortowanieScalanie<int, 10>();
+    badanieIntrosortu<int, 10000>();
+ 
  
     
     return 0;
