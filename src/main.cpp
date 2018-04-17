@@ -13,12 +13,12 @@ using namespace std;
 
 int main()
 {
-
-    Szybkie<int,10> szTab;
-    Scalanie sTab ; 
+    
+    //Szybkie<int,10> szTab;
+    //Scalanie sTab ; 
  
 
-    szTab.wyswietlTablice();
+    //szTab.wyswietlTablice();
     /*cout<<endl;
     szTab.szybkiSortowanie(0, N - 1);
     szTab.wyswietlTablice();

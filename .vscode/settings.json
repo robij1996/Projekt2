@@ -25,6 +25,10 @@
         "chrono": "cpp",
         "cmath": "cpp",
         "ratio": "cpp",
-        "utility": "cpp"
+        "utility": "cpp",
+        "array": "cpp",
+        "iomanip": "cpp",
+        "sstream": "cpp",
+        "tuple": "cpp"
     }
 }

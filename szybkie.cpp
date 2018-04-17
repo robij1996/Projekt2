@@ -44,27 +44,23 @@ void szybkiSortowanie(T tablica[], int poczatek , int koniec)
 {
     if(koniec <= poczatek) return;
 
-    int i = poczatek ;
-    int j = koniec ; 
-    int pivot = tablica[(int)(koniec*0.85)];
+    int i, j, pivot; 
+    i = (poczatek + koniec) / 2 ;
+    pivot = tablica[i];
 
-    while(true)
+    for(j = i = poczatek; i < koniec; i++)
     {
-        while(pivot > tablica[++i]);
-
-        while(pivot < tablica[--j]);
-
-        if(i <= j)
-            swap(tablica[i], tablica[j]);
-        else    
-            break;
-
+        swap(tablica[i], tablica[j]);
+        j++;
     }
+    
+    tablica[koniec] = tablica[j];
+    tablica[j] = pivot;
 
-    if(j > poczatek)
-    szybkiSortowanie<T>(tablica, poczatek, j);
-    if(i < koniec)
-    szybkiSortowanie<T>(tablica, i, koniec);
+    if(poczatek < j - 1)
+    szybkiSortowanie<T>(tablica, poczatek, j - 1);
+    if(j + 1 < koniec)
+    szybkiSortowanie<T>(tablica, j +1, koniec);
 
 
 
@@ -113,7 +109,7 @@ void badanieSzybkiegoSortowania(int wielkosc, double posortowane)
 
         
         }
-        cout<<"Suma czasu dla tablicy "<<wielkosc<<"  posortowanej "<<posortowane<< " wynosi: "<<czas/100000000<<"ms"<<endl;
+        cout<<"Średnia czasu dla tablicy "<<wielkosc<<"  posortowanej "<<posortowane<< " wynosi: "<<czas/100000000<<"ms"<<endl;
         czas=0;
     }
 
@@ -121,8 +117,8 @@ void badanieSzybkiegoSortowania(int wielkosc, double posortowane)
     //tablica bez wstepnego sortowania 
     if(posortowane == 0)
     {
-        for(int i = 0; i<100; i++)
-        {
+       /* for(int i = 0; i<1; i++)
+        {*/
             T tablica[wielkosc];
 
             wypelnijTablice<T>(tablica, wielkosc);
@@ -135,8 +131,8 @@ void badanieSzybkiegoSortowania(int wielkosc, double posortowane)
 
 
             
-        }
-        cout<<"Suma czasu dla tablicy "<<wielkosc<<" nie posortowanej wynosi: "<<czas/100000000<<"ms"<<endl;
+        //}
+        cout<<"Średnia czasu dla tablicy "<<wielkosc<<" nie posortowanej wynosi: "<<czas/1000000<<"ms"<<endl;
         czas=0;
     }
 
@@ -161,7 +157,7 @@ void badanieSzybkiegoSortowania(int wielkosc, double posortowane)
 
             
         }
-            cout<<"Suma czasu dla tablicy "<<wielkosc<<" odwrtonie posortowanej wynosi: "<<czas/100000000<<"ms"<<endl;
+            cout<<"Średnia czasu dla tablicy "<<wielkosc<<" odwrtonie posortowanej wynosi: "<<czas/100000000<<"ms"<<endl;
             czas=0;
 
     }
@@ -177,13 +173,14 @@ void eksperyment (int rozmiar)
 {
 
 
-    badanieSzybkiegoSortowania<int>(rozmiar, -1);
+    //badanieSzybkiegoSortowania<int>(rozmiar, -1);
     badanieSzybkiegoSortowania<int>(rozmiar, 0);
-    badanieSzybkiegoSortowania<int>(rozmiar, 0.25);
+   /* badanieSzybkiegoSortowania<int>(rozmiar, 0.25);
     badanieSzybkiegoSortowania<int>(rozmiar, 0.5);
     badanieSzybkiegoSortowania<int>(rozmiar, 0.75);
     badanieSzybkiegoSortowania<int>(rozmiar, 0.95);
-    badanieSzybkiegoSortowania<int>(rozmiar, 0.997);
+    badanieSzybkiegoSortowania<int>(rozmiar, 0.99);
+    badanieSzybkiegoSortowania<int>(rozmiar, 0.997);*/
 
 
 
@@ -199,7 +196,7 @@ void eksperyment (int rozmiar)
 int main()
 {
 
-   eksperyment<int>(10000);
+   eksperyment<int>(100);
 
  
  

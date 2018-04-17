@@ -126,23 +126,30 @@ void kopcowanie(T tablica[], int wielkosc)
 
 }
 
+template<typename T>
+void sortowanieIntro(T tablica[], int wielkosc, int max  )
+{
+    
 
+    if(max <= 0)
+    {
+        kopcowanie<T>(tablica, wielkosc);
+        return;
+    }
+    int i = podzial<T>(tablica, 0, wielkosc);
+
+    if(i > 9)
+        sortowanieIntro<T>(tablica, i, max - 1);
+    if(wielkosc - 1 - i > 9)
+        sortowanieIntro(tablica, wielkosc - 1 - i, max - 1);
+
+}
 
 
 template<typename T>
 void introsort(T tablica[], int wielkosc)
 {
-    int granica = podzial(tablica, 0, wielkosc - 1);
-
-
-    if(granica < 2 * log(wielkosc))
-    {
-        kopcowanie<T>(tablica, wielkosc);
-    }
-    else
-    {
-        sortowanieSzybkie<T>(tablica, 0, wielkosc - 1);
-    }
+    sortowanieIntro<T>(tablica, wielkosc, (int)(2*log(wielkosc) ) );
  
 }
 
@@ -182,7 +189,7 @@ void badanieIntroSortowania(int wielkosc, double posortowane)
 
         
         }
-        cout<<"Suma czasu dla tablicy "<<wielkosc<<"  posortowanej "<<posortowane<< " wynosi: "<<czas/100000000<<"ms"<<endl;
+        cout<<"Średnia czasu dla tablicy "<<wielkosc<<"  posortowanej "<<posortowane<< " wynosi: "<<czas/100000000<<"ms"<<endl;
         czas=0;
     }
 
@@ -205,7 +212,7 @@ void badanieIntroSortowania(int wielkosc, double posortowane)
 
             
         }
-        cout<<"Suma czasu dla tablicy "<<wielkosc<<" nie posortowanej wynosi: "<<czas/100000000<<"ms"<<endl;
+        cout<<"Średnia czasu dla tablicy "<<wielkosc<<" nie posortowanej wynosi: "<<czas/100000000<<"ms"<<endl;
         czas=0;
     }
 
@@ -230,7 +237,7 @@ void badanieIntroSortowania(int wielkosc, double posortowane)
 
             
         }
-            cout<<"Suma czasu dla tablicy "<<wielkosc<<" odwrtonie posortowanej wynosi: "<<czas/100000000<<"ms"<<endl;
+            cout<<"Średnia czasu dla tablicy "<<wielkosc<<" odwrtonie posortowanej wynosi: "<<czas/100000000<<"ms"<<endl;
             czas=0;
 
     }
@@ -257,6 +264,7 @@ void eksperyment (int rozmiar)
     badanieIntroSortowania<int>(rozmiar, 0.5);
     badanieIntroSortowania<int>(rozmiar, 0.75);
     badanieIntroSortowania<int>(rozmiar, 0.95);
+    badanieIntroSortowania<int>(rozmiar, 0.99);
     badanieIntroSortowania<int>(rozmiar, 0.997);
 
 
@@ -274,7 +282,8 @@ void eksperyment (int rozmiar)
 int main()
 {
 
-   eksperyment<int>(10000);
+   eksperyment<int>(100000);
+   
 
  
  

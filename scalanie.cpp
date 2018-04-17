@@ -191,6 +191,7 @@ void eksperyment(int rozmiar)
     badanieSortowanieScalanie<int>(rozmiar, 0.5);
     badanieSortowanieScalanie<int>(rozmiar, 0.75);
     badanieSortowanieScalanie<int>(rozmiar, 0.95);
+    badanieSortowanieScalanie<int>(rozmiar, 0.99);
     badanieSortowanieScalanie<int>(rozmiar, 0.997);
 
 
@@ -200,7 +201,7 @@ void eksperyment(int rozmiar)
 int main()
 {
 
-   eksperyment<int>(1000);
+   eksperyment<int>(100);
 
  
  
