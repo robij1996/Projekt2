@@ -130,10 +130,12 @@ void sortowanieIntro(T *tablica, int wielk)
      if(wartoscTab > ( 2 * log(wielk) ) )
     {
         sortowanieScalanie<T>(tablica, 0, wielk);
+        cout<<"sjasdf"<<endl;
     }
     else 
     {
         szybkiSortowanie<T>(tablica, 0, wielk);
+        cout<<"sjf"<<endl;
     }
 
 }
@@ -185,7 +187,7 @@ int main()
     
     //badanieSzybkiegoSortowania<int, 10>();
     //badanieSortowanieScalanie<int, 10>();
-    badanieIntrosortu<int, 10000>();
+    badanieIntrosortu<int, 10>();
  
  
     
