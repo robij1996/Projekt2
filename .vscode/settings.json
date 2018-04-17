@@ -22,6 +22,9 @@
         "system_error": "cpp",
         "type_traits": "cpp",
         "typeinfo": "cpp",
-        "chrono": "cpp"
+        "chrono": "cpp",
+        "cmath": "cpp",
+        "ratio": "cpp",
+        "utility": "cpp"
     }
 }

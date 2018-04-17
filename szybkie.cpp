@@ -11,7 +11,7 @@ using namespace std;
 
 
 template<typename T>
-void wyswietlTablice(T* tab,int wielkosc)
+void wyswietlTablice(T tab[] ,int wielkosc)
 {
     for(int i = 0; i < wielkosc ; i++)
     {
@@ -24,7 +24,7 @@ void wyswietlTablice(T* tab,int wielkosc)
 }
 
 template<typename T>
-void wypelnijTablice(T *tab, int wielkosc)
+void wypelnijTablice(T tab[], int wielkosc)
 {
     srand(time(NULL));
     for(int i = 0; i < wielkosc ; i++)
@@ -36,47 +36,44 @@ void wypelnijTablice(T *tab, int wielkosc)
     
 }
 
-template<typename T>
-int dzielenieTablicy(T *tablica, int poczatek, int koniec)
-{
-    int pivot = tablica[(int)(koniec*0.85)];
-    int tab_pom;
-    int i = poczatek;
 
-    for(int j = poczatek ; j < koniec; ++j)
+
+
+template<typename T>
+void szybkiSortowanie(T tablica[], int poczatek , int koniec)
+{
+    if(koniec <= poczatek) return;
+
+    int i = poczatek ;
+    int j = koniec ; 
+    int pivot = tablica[(int)(koniec*0.85)];
+
+    while(true)
     {
-        if(tablica[j] <= pivot)
-        {
-            tab_pom = tablica[j];
-            tablica[j] = tablica[i];
-            tablica[i] = tab_pom;
-            i++;
-        }
+        while(pivot > tablica[++i]);
+
+        while(pivot < tablica[--j]);
+
+        if(i <= j)
+            swap(tablica[i], tablica[j]);
+        else    
+            break;
+
     }
 
-    tablica[koniec] = tablica[i];
-    tablica[i] = pivot;
-    return i;
+    if(j > poczatek)
+    szybkiSortowanie<T>(tablica, poczatek, j);
+    if(i < koniec)
+    szybkiSortowanie<T>(tablica, i, koniec);
 
-}
 
-
-template<typename T>
-void szybkiSortowanie(T *tablica, int poczatek , int koniec)
-{
-   if(poczatek < koniec)
-   {
-       int pomocnicza = dzielenieTablicy<T>(tablica, poczatek, koniec);
-       szybkiSortowanie<T>(tablica, poczatek, pomocnicza - 1);
-       szybkiSortowanie<T>(tablica, pomocnicza + 1, koniec);
-   }
 
 
 }
 
 
 template<typename T>
-void wypelnienieTablicy(T *tab, int wielkosc, double posortowane)
+void wypelnienieTablicy(T tab[], int wielkosc, double posortowane)
 {
     double iloscPos = (double)wielkosc*posortowane;
     wypelnijTablice<T>(tab, iloscPos);
@@ -103,7 +100,7 @@ void badanieSzybkiegoSortowania(int wielkosc, double posortowane)
     {
         for(int i = 0; i<100; i++)
         {
-        T *tablica = new T [wielkosc];
+        T tablica[wielkosc];
 
         wypelnienieTablicy(tablica, wielkosc, posortowane);
 
@@ -114,10 +111,10 @@ void badanieSzybkiegoSortowania(int wielkosc, double posortowane)
         czas += (chrono::duration_cast<std::chrono::nanoseconds>(stop - start).count());
 
 
-        delete [] tablica;
+        
         }
-        cout<<"Suma czasu dla tablicy "<<wielkosc<<"  posortowanej "<<posortowane<< " wynosi: "<<czas/1000000<<"ms"<<endl;
-
+        cout<<"Suma czasu dla tablicy "<<wielkosc<<"  posortowanej "<<posortowane<< " wynosi: "<<czas/100000000<<"ms"<<endl;
+        czas=0;
     }
 
 
@@ -126,7 +123,7 @@ void badanieSzybkiegoSortowania(int wielkosc, double posortowane)
     {
         for(int i = 0; i<100; i++)
         {
-            T *tablica = new T [wielkosc];
+            T tablica[wielkosc];
 
             wypelnijTablice<T>(tablica, wielkosc);
 
@@ -137,10 +134,10 @@ void badanieSzybkiegoSortowania(int wielkosc, double posortowane)
             czas += (chrono::duration_cast<std::chrono::nanoseconds>(stop - start).count());
 
 
-            delete [] tablica;
+            
         }
-         cout<<"Suma czasu dla tablicy "<<wielkosc<<" nie posortowanej wynosi: "<<czas/1000000<<"ms"<<endl;
-
+        cout<<"Suma czasu dla tablicy "<<wielkosc<<" nie posortowanej wynosi: "<<czas/100000000<<"ms"<<endl;
+        czas=0;
     }
 
 
@@ -149,7 +146,7 @@ void badanieSzybkiegoSortowania(int wielkosc, double posortowane)
     {
         for(int i = 0; i<100; i++)
         {
-            T *tablica = new T [wielkosc];
+            T tablica[wielkosc];
 
             szybkiSortowanie<T>(tablica, 0, wielkosc);
             reverse( tablica, tablica + wielkosc );
@@ -162,10 +159,10 @@ void badanieSzybkiegoSortowania(int wielkosc, double posortowane)
             czas += (chrono::duration_cast<std::chrono::nanoseconds>(stop - start).count());
 
 
-            delete [] tablica;
+            
         }
-            cout<<"Suma czasu dla tablicy "<<wielkosc<<" odwrtonie posortowanej wynosi: "<<czas/1000000<<"ms"<<endl;
-
+            cout<<"Suma czasu dla tablicy "<<wielkosc<<" odwrtonie posortowanej wynosi: "<<czas/100000000<<"ms"<<endl;
+            czas=0;
 
     }
 

@@ -96,7 +96,7 @@ void scalanie(T *tablica, int poczatek, int srodek, int koniec)
         tablica[k++] = tab_pom[i++];
 
 
-
+    delete [] tab_pom;
 }
 
 
