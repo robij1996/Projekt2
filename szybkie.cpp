@@ -32,9 +32,9 @@ void wypelnijTablice(T tab[], int wielkosc)
        tab[i] = rand() % 10000;
     }
 
-
-    
 }
+    
+
 
 
 
@@ -42,25 +42,35 @@ void wypelnijTablice(T tab[], int wielkosc)
 template<typename T>
 void szybkiSortowanie(T tablica[], int poczatek , int koniec)
 {
-    if(koniec <= poczatek) return;
-
-    int i, j, pivot; 
-    i = (poczatek + koniec) / 2 ;
-    pivot = tablica[i];
-
-    for(j = i = poczatek; i < koniec; i++)
-    {
-        swap(tablica[i], tablica[j]);
-        j++;
-    }
     
-    tablica[koniec] = tablica[j];
-    tablica[j] = pivot;
+    int i = poczatek, j = koniec;
+    int tmp;
+    int pivot = tablica[(koniec + poczatek) / 2];
 
-    if(poczatek < j - 1)
-    szybkiSortowanie<T>(tablica, poczatek, j - 1);
-    if(j + 1 < koniec)
-    szybkiSortowanie<T>(tablica, j +1, koniec);
+
+      while (i <= j) 
+      {
+            while (tablica[i] < pivot)
+                  i++;
+
+            while (tablica[j] > pivot)
+                  j--;
+
+            if (i <= j) 
+            {
+                  tmp = tablica[i];
+                  tablica[i] = tablica[j];
+                  tablica[j] = tmp;
+                  i++;
+                  j--;
+            }
+
+      };
+
+      if (poczatek < j)
+            szybkiSortowanie<T>(tablica, poczatek, j);
+      if (i < koniec)
+            szybkiSortowanie<T>(tablica, i, koniec);
 
 
 
@@ -117,8 +127,8 @@ void badanieSzybkiegoSortowania(int wielkosc, double posortowane)
     //tablica bez wstepnego sortowania 
     if(posortowane == 0)
     {
-       /* for(int i = 0; i<1; i++)
-        {*/
+        for(int i = 0; i<100; i++)
+        {
             T tablica[wielkosc];
 
             wypelnijTablice<T>(tablica, wielkosc);
@@ -131,8 +141,8 @@ void badanieSzybkiegoSortowania(int wielkosc, double posortowane)
 
 
             
-        //}
-        cout<<"Średnia czasu dla tablicy "<<wielkosc<<" nie posortowanej wynosi: "<<czas/1000000<<"ms"<<endl;
+        }
+        cout<<"Średnia czasu dla tablicy "<<wielkosc<<" nie posortowanej wynosi: "<<czas/100000000<<"ms"<<endl;
         czas=0;
     }
 
@@ -173,14 +183,14 @@ void eksperyment (int rozmiar)
 {
 
 
-    //badanieSzybkiegoSortowania<int>(rozmiar, -1);
+    badanieSzybkiegoSortowania<int>(rozmiar, -1);
     badanieSzybkiegoSortowania<int>(rozmiar, 0);
-   /* badanieSzybkiegoSortowania<int>(rozmiar, 0.25);
+    badanieSzybkiegoSortowania<int>(rozmiar, 0.25);
     badanieSzybkiegoSortowania<int>(rozmiar, 0.5);
     badanieSzybkiegoSortowania<int>(rozmiar, 0.75);
     badanieSzybkiegoSortowania<int>(rozmiar, 0.95);
     badanieSzybkiegoSortowania<int>(rozmiar, 0.99);
-    badanieSzybkiegoSortowania<int>(rozmiar, 0.997);*/
+    badanieSzybkiegoSortowania<int>(rozmiar, 0.997);
 
 
 
@@ -195,8 +205,11 @@ void eksperyment (int rozmiar)
 
 int main()
 {
-
-   eksperyment<int>(100);
+    eksperyment<int>(10000);
+    eksperyment<int>(50000);
+    eksperyment<int>(100000);
+    eksperyment<int>(500000);
+    eksperyment<int>(1000000);
 
  
  

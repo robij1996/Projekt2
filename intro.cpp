@@ -40,7 +40,7 @@ void wypelnijTablice(T tab[], int wielkosc)
 template<typename T>
 int podzial(T tablica[], int poczatek, int koniec)
 {   
-    int pivot = tablica[(int)(koniec*0.85)];
+    int pivot = tablica[(koniec + poczatek) / 2];
     int pom;
     int i = poczatek;
 
@@ -61,7 +61,7 @@ int podzial(T tablica[], int poczatek, int koniec)
 
 }
 
-
+/*
 template<typename T>
 void sortowanieSzybkie(T tablica[], int poczatek, int koniec)
 {
@@ -72,7 +72,7 @@ void sortowanieSzybkie(T tablica[], int poczatek, int koniec)
         sortowanieSzybkie<T>(tablica, q + 1, koniec );
     }
 
-}
+}*/
 
 
 template<typename T>
@@ -281,9 +281,11 @@ void eksperyment (int rozmiar)
 
 int main()
 {
-
-   eksperyment<int>(100000);
-   
+    eksperyment<int>(10000);
+    eksperyment<int>(50000);
+    eksperyment<int>(100000);
+    eksperyment<int>(500000);
+    eksperyment<int>(1000000);
 
  
  

@@ -201,7 +201,11 @@ void eksperyment(int rozmiar)
 int main()
 {
 
-   eksperyment<int>(100);
+    eksperyment<int>(10000);
+    eksperyment<int>(50000);
+    eksperyment<int>(100000);
+    eksperyment<int>(500000);
+    eksperyment<int>(1000000);
 
  
  
