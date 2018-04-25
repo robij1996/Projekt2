@@ -123,7 +123,7 @@ void badanieSzybkiegoSortowania(int wielkosc, double posortowane)
     // tablica z wstepnym sortowaniem 
     if(posortowane > 0)
     {
-        for(int i = 0; i<10; i++)
+        for(int i = 0; i<100; i++)
         {
         T tablica[wielkosc];
 
@@ -138,7 +138,7 @@ void badanieSzybkiegoSortowania(int wielkosc, double posortowane)
         sprawdzKolejnosc<T>(tablica, wielkosc);
         
         }
-        cout<<"Średnia czasu dla tablicy "<<wielkosc<<"  posortowanej "<<posortowane<< " wynosi: "<<czas/10000000<<"ms"<<endl;
+        cout<<"Średnia czasu dla tablicy "<<wielkosc<<"  posortowanej "<<posortowane<< " wynosi: "<<czas/100000000<<"ms"<<endl;
         czas=0;
     }
 
@@ -146,7 +146,7 @@ void badanieSzybkiegoSortowania(int wielkosc, double posortowane)
     //tablica bez wstepnego sortowania 
     if(posortowane == 0)
     {
-        for(int i = 0; i<10; i++)
+        for(int i = 0; i<100; i++)
         {
             T tablica[wielkosc];
 
@@ -161,7 +161,7 @@ void badanieSzybkiegoSortowania(int wielkosc, double posortowane)
             sprawdzKolejnosc<T>(tablica, wielkosc);
             
         }
-        cout<<"Średnia czasu dla tablicy "<<wielkosc<<" nie posortowanej wynosi: "<<czas/10000000<<"ms"<<endl;
+        cout<<"Średnia czasu dla tablicy "<<wielkosc<<" nie posortowanej wynosi: "<<czas/100000000<<"ms"<<endl;
         czas=0;
     }
 
@@ -169,7 +169,7 @@ void badanieSzybkiegoSortowania(int wielkosc, double posortowane)
     //tablica odwrotnie posortowana 
     if(posortowane == -1)
     {
-        for(int i = 0; i<10; i++)
+        for(int i = 0; i<100; i++)
         {
             T tablica[wielkosc];
             wypelnijTablice<T>(tablica, wielkosc);
@@ -184,7 +184,7 @@ void badanieSzybkiegoSortowania(int wielkosc, double posortowane)
             sprawdzKolejnosc<T>(tablica, wielkosc);
             
         }
-            cout<<"Średnia czasu dla tablicy "<<wielkosc<<" odwrtonie posortowanej wynosi: "<<czas/10000000<<"ms"<<endl;
+            cout<<"Średnia czasu dla tablicy "<<wielkosc<<" odwrtonie posortowanej wynosi: "<<czas/100000000<<"ms"<<endl;
             czas=0;
 
     }
