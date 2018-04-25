@@ -39,6 +39,25 @@ void wypelnijTablice(T tab[], int wielkosc)
     
 }
 
+
+
+template<typename T>
+void sprawdzKolejnosc(T tablica[], int wielkosc)
+{
+
+    for(int i = 1; i < wielkosc ; i++)
+    {
+       if(tablica[i-1] > tablica[i])
+       {
+            cout<<"Jest zle posortowana"<<endl;
+            break;
+       }
+
+    }
+
+
+}
+
 template<typename T>
 void scal(T tablica[], int poczatek, int srodek, int koniec)
 {
@@ -123,7 +142,7 @@ void badanieSortowanieScalanie(int wielkosc, double posortowane)
 
         czas += (std::chrono::duration_cast<std::chrono::nanoseconds>(stop - start).count());
 
-
+        sprawdzKolejnosc<T>(tablica, wielkosc);
         
         }
         cout<<"Średnia czasu dla tablicy "<<wielkosc<<"  posortowanej "<<posortowane<< " wynosi: "<<czas/100000000<<"ms"<<endl;
@@ -146,7 +165,7 @@ void badanieSortowanieScalanie(int wielkosc, double posortowane)
 
             czas += (std::chrono::duration_cast<std::chrono::nanoseconds>(stop - start).count());
 
-
+            sprawdzKolejnosc<T>(tablica, wielkosc);
             
         }
         cout<<"Średnia czasu dla tablicy "<<wielkosc<<" nie posortowanej wynosi: "<<czas/100000000<<"ms"<<endl;
@@ -160,6 +179,8 @@ void badanieSortowanieScalanie(int wielkosc, double posortowane)
         {
             T tablica[wielkosc];
 
+            wypelnijTablice<T>(tablica, wielkosc);
+
             sortowanieScalcanie<T>(tablica, 0, wielkosc - 1);
             reverse( tablica, tablica + wielkosc );
 
@@ -170,7 +191,7 @@ void badanieSortowanieScalanie(int wielkosc, double posortowane)
 
             czas += (std::chrono::duration_cast<std::chrono::nanoseconds>(stop - start).count());
 
-
+            sprawdzKolejnosc<T>(tablica, wielkosc);
             
         }
             cout<<"Średnia czasu dla tablicy "<<wielkosc<<" odwrtonie posortowanej wynosi: "<<czas/100000000<<"ms"<<endl;

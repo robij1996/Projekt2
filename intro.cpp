@@ -38,120 +38,177 @@ void wypelnijTablice(T tab[], int wielkosc)
 
 
 template<typename T>
-int podzial(T tablica[], int poczatek, int koniec)
-{   
-    int pivot = tablica[(koniec + poczatek) / 2];
-    int pom;
-    int i = poczatek;
-
-    for (int j = poczatek; j < koniec; ++j)
-    {
-        if(tablica[j] <= pivot)
-        {
-            pom = tablica[j];
-            tablica[j] = tablica[i];
-            tablica[i] = pom;
-            i++;
-        }
-    }
-    tablica[koniec] = tablica[i];
-    tablica[i] = pivot;
-
-    return i;
-
-}
-
-/*
-template<typename T>
-void sortowanieSzybkie(T tablica[], int poczatek, int koniec)
+void sprawdzKolejnosc(T tablica[], int wielkosc)
 {
-    if(poczatek < koniec)
+
+    for(int i = 1; i < wielkosc ; i++)
     {
-        int q = podzial<T>(tablica, poczatek, koniec);
-        sortowanieSzybkie<T>(tablica, poczatek, q -1 );
-        sortowanieSzybkie<T>(tablica, q + 1, koniec );
-    }
+       if(tablica[i-1] > tablica[i])
+       {
+            cout<<"Jest zle posortowana"<<endl;
+            break;
+       }
 
-}*/
-
-
-template<typename T>
-void kopiec(T tablica[], int rozmiar, int id )
-{
-    int lewy = (id +1) * 2 - 1;
-    int prawy = (id +1) * 2;
-    int  najwiekszy = 0;
-
-    if(lewy < rozmiar && tablica[lewy] > tablica[id])
-        najwiekszy = prawy;
-    else 
-        najwiekszy = id;
-
-    if(prawy < rozmiar && tablica[prawy] > tablica[najwiekszy])
-        najwiekszy = prawy;
-
-    
-    if(najwiekszy != id)
-    {
-        int pom = tablica[id];
-        tablica[id] = tablica[najwiekszy];
-        tablica[najwiekszy] = pom;
-
-        kopiec<T>(tablica, rozmiar, najwiekszy);
     }
 
 
 }
 
 
-
-template<typename T>
-void kopcowanie(T tablica[], int wielkosc)
+template <class T>
+void zmiana (T tablica[], int i, int j)
 {
-    int rozmiar = wielkosc;
+  T temp;
 
-    for(int p = (rozmiar -1 )/2; p >= 0; --p)
-        kopiec(tablica, rozmiar, p);
-
-    for(int i = wielkosc - 1; i > 0; --i)
-    {
-        int pom = tablica[i];
-        tablica[i] = tablica[0];
-        tablica[0] = pom; 
-
-        --rozmiar;
-        kopiec(tablica, rozmiar, 0);
-
-    }
-
-}
-
-template<typename T>
-void sortowanieIntro(T tablica[], int wielkosc, int max  )
-{
-    
-
-    if(max <= 0)
-    {
-        kopcowanie<T>(tablica, wielkosc);
-        return;
-    }
-    int i = podzial<T>(tablica, 0, wielkosc);
-
-    if(i > 9)
-        sortowanieIntro<T>(tablica, i, max - 1);
-    if(wielkosc - 1 - i > 9)
-        sortowanieIntro(tablica, wielkosc - 1 - i, max - 1);
+  temp = tablica[i];
+  tablica[i] = tablica[j];
+  tablica[j] = temp;
 
 }
 
 
-template<typename T>
-void introsort(T tablica[], int wielkosc)
+template <class T>
+void kopiec (T tablica[], int i, int poczatek)
 {
-    sortowanieIntro<T>(tablica, wielkosc, (int)(2*log(wielkosc) ) );
+  int j;
+  while (i <= poczatek / 2)
+  {
+    j = 2 * i;
+
+
+    if (j + 1 <= poczatek && tablica[j + 1] > tablica[j])
+      j= j + 1;
+
+    if (tablica[i] < tablica[j])
+      zmiana(tablica, i, j);
+
+    else break;
+
+    i = j;
+  }
+}
+
+template <class T>
+void kopcowanie (T tablica[], int poczatek)
+{
+  int i;
+
+
+  for (i = poczatek / 2; i > 0; --i)
+    kopiec(tablica - 1, i, poczatek);
+
+  for (i = poczatek - 1; i > 0; --i)
+  {
+    zmiana(tablica, 0, i);
+    kopiec(tablica-1, 1, i);
+  }
+
+}
  
+
+
+
+
+template <class T>
+void wstawianie (T tablica[], int poczatek)
+{
+  int i, j;
+  T temp;
+
+
+  for (i = 1; i < poczatek; ++i)
+  {
+    temp = tablica[i];
+
+
+    for (j = i; j > 0 && temp < tablica[j-1]; --j)
+        tablica[j] = tablica[j-1];
+
+    tablica[j] = temp;
+
+  }
 }
+
+
+
+
+template <class T>
+void mediana (T tablica[], int &poczatek, int &koniec)
+{
+  if (tablica[++poczatek-1]>tablica[--koniec])
+    zmiana(tablica,poczatek-1,koniec);
+
+  if (tablica[poczatek-1]>tablica[koniec/2])
+    zmiana(tablica,poczatek-1,koniec/2);
+
+  if (tablica[koniec/2]>tablica[koniec])
+    zmiana(tablica,koniec/2,koniec);
+
+  zmiana(tablica,koniec/2,koniec-1);
+}
+
+
+template <class T>
+int podzial (T tablica[], int poczatek, int koniec)
+{
+  int i, j;
+  if (koniec >= 3)
+    mediana(tablica, poczatek, koniec);
+  for (i = poczatek, j = koniec - 2; ; )
+  {
+
+
+    for ( ; tablica[i] < tablica[koniec - 1]; ++i);
+
+    for ( ; j >= poczatek && tablica[j] > tablica[koniec - 1]; --j);
+
+        if (i < j)
+             zmiana(tablica, i++, j--);
+        else break;
+  }
+
+  zmiana(tablica, i, koniec - 1);
+
+  return i;
+
+}
+ 
+
+
+template <class T>
+void sortowanieIntro (T tablica[], int wielkosc, int limit)
+{
+  int i;
+  
+  if (limit <= 0)
+  {
+    kopcowanie(tablica, wielkosc);
+    return;
+  }
+
+  i=podzial(tablica, 0, wielkosc);
+
+  if (i > 9)
+    sortowanieIntro(tablica, i, limit - 1);
+
+  if (wielkosc - 1 - i > 9)
+    sortowanieIntro(tablica + i + 1, wielkosc - 1 - i, limit - 1);
+}
+
+
+
+template <class T>
+void introsort (T tablica[], int wielkosc)
+{
+  sortowanieIntro(tablica,wielkosc,(int)floor(2*log(wielkosc)));
+  wstawianie(tablica,wielkosc);
+}
+
+
+
+
+
+
 
 
 
@@ -164,6 +221,9 @@ void wypelnienieTablicy(T tab[], int wielkosc, double posortowane)
     wypelnijTablice<T>(tab, wielkosc - iloscPos + 1);
 
 }
+
+
+
 
 template<typename T>
 void badanieIntroSortowania(int wielkosc, double posortowane)
@@ -179,15 +239,14 @@ void badanieIntroSortowania(int wielkosc, double posortowane)
         T tablica[wielkosc];
 
         wypelnienieTablicy(tablica, wielkosc, posortowane);
-
+        
         auto start = Clock::now();
         introsort<T>(tablica, wielkosc);
         auto stop = Clock::now();
 
         czas += (chrono::duration_cast<std::chrono::nanoseconds>(stop - start).count());
 
-
-        
+        sprawdzKolejnosc<T>(tablica, wielkosc);
         }
         cout<<"Średnia czasu dla tablicy "<<wielkosc<<"  posortowanej "<<posortowane<< " wynosi: "<<czas/100000000<<"ms"<<endl;
         czas=0;
@@ -209,7 +268,7 @@ void badanieIntroSortowania(int wielkosc, double posortowane)
 
             czas += (chrono::duration_cast<std::chrono::nanoseconds>(stop - start).count());
 
-
+            sprawdzKolejnosc<T>(tablica, wielkosc);
             
         }
         cout<<"Średnia czasu dla tablicy "<<wielkosc<<" nie posortowanej wynosi: "<<czas/100000000<<"ms"<<endl;
@@ -224,6 +283,7 @@ void badanieIntroSortowania(int wielkosc, double posortowane)
         {
             T tablica[wielkosc];
 
+            wypelnijTablice<T>(tablica, wielkosc);
             introsort<T>(tablica, wielkosc);
             reverse( tablica, tablica + wielkosc );
 
@@ -231,10 +291,9 @@ void badanieIntroSortowania(int wielkosc, double posortowane)
             auto start = Clock::now();
             introsort<T>(tablica, wielkosc);
             auto stop = Clock::now();
-
             czas += (chrono::duration_cast<std::chrono::nanoseconds>(stop - start).count());
 
-
+            sprawdzKolejnosc<T>(tablica, wielkosc);
             
         }
             cout<<"Średnia czasu dla tablicy "<<wielkosc<<" odwrtonie posortowanej wynosi: "<<czas/100000000<<"ms"<<endl;
@@ -280,7 +339,8 @@ void eksperyment (int rozmiar)
 
 
 int main()
-{
+{   
+    
     eksperyment<int>(10000);
     eksperyment<int>(50000);
     eksperyment<int>(100000);
